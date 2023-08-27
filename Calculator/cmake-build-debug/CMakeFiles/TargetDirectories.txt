@@ -1,0 +1,3 @@
+C:/APPS/C course/C coding/Ideas/Calculator/cmake-build-debug/CMakeFiles/Calculator.dir
+C:/APPS/C course/C coding/Ideas/Calculator/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/APPS/C course/C coding/Ideas/Calculator/cmake-build-debug/CMakeFiles/rebuild_cache.dir
