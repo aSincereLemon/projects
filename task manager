@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+
+
+#define MAX_TASKS 100
+#define MAX_TASK_DESCRIPTION_LENGTH 150
+
+struct Task{
+    char description[MAX_TASK_DESCRIPTION_LENGTH];
+    bool isDone;
+};
+
+void printMenu(){
+    printf("\n--- To Do List Manager ---\n");
+    printf("1. Add Task\n");
+    printf("2. Mark Task as done\n");
+    printf("3. Delete Task\n");
+    printf("4. View Tasks\n");
+    printf("5. Exit\n");
+    printf("Enter your choice: ");
+}
+
+int main(){
+    struct Task tasks[MAX_TASKS];
+    int taskCount = 0;
+
+    int choice;
+    do{
+        printMenu();
+        scanf("%d", &choice);
+
+        switch (choice) {
+
+            case 1: //Add task
+            if(taskCount < MAX_TASKS){
+                printf("Enter task description: ");
+                scanf(" %[^\n]", tasks[taskCount].description);
+                tasks[taskCount].isDone = false;
+                taskCount++;
+                printf("Task added!\n");
+            } else{
+                printf("Task list is full.\n");
+            }
+            break;
+
+            case 2: // Mark task as done
+            printf("Enter task number to mark as done: ");
+            int taskNumber;
+            scanf("%d", taskNumber);
+
+            if(taskNumber >= 1 && taskNumber <= taskCount){
+                tasks[taskNumber - 1].isDone = true;
+                printf("Task marked as done!\n");
+            } else {
+                printf("Invalid task number.\n");
+            }
+            break;
+
+            case 3: //Delete task
+            printf("Enter task number to delete: ");
+            scanf("%d", &taskNumber);
+
+            if(taskNumber >= 1 && taskNumber <= taskCount){
+                for(int i = taskNumber - 1; i < taskCount; i++) {
+                    strcpy(tasks[i].description, tasks[i + 1].description);
+                    tasks[i].isDone = tasks[i+1].isDone;
+                }
+                taskCount--;
+                printf("Task deleted!\n");
+            } else {
+                printf("Invalid task number.\n");
+            }
+            break;
+
+            case 4: //View tasks
+            printf("Tasks: \n");
+            for(int i = 0; i < taskCount; i++) {
+                printf("%d. [%c] %s\n", i+1, tasks[i].isDone ? 'X': ' ', tasks[i].description);
+            }
+            break;
+
+            case 5: //Exit
+            printf("Exiting...\n");
+            break;
+        }
+    } while(choice != 5);
+
+    return 0;
+}
